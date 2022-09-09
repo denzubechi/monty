@@ -11,21 +11,25 @@
  */
 void m_pstr(stack_t **stack, unsigned int line_number)
 {
-	stack_t *temp;
-	int ch;
+	stack_t *temp = NULL;
 
-	(void)line_number;
+	if (*stack == NULL)
+	{
+		putchar(10);
+		return;
+	}
 
 	temp = *stack;
-	while (temp != NULL)
+
+	while (temp)
 	{
-		ch = temp->n;
-		if (!isascii(ch) || ch == 0)
-			break;
-		putchar(ch);
+		if (temp->n <= 0 || temp->n >= 128)
+		{
+			putchar(10);
+			return;
+		}
+		printf("%c", temp->n);
 		temp = temp->next;
-		if (temp == *stack)
-			break;
 	}
-	putchar('\n');
+	putchar(10);
 }
